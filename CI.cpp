@@ -25,12 +25,6 @@ vec Kernel(const mat& x, const double& h){
 }
 
 // [[Rcpp::export]]
-double ttt(const mat& z, const double& h) {
-  mat zz = z.cols(0, 1);
-  return sum(Kernel(zz.each_row() - z.submat(1, 0, 1, 1), h) % (z.col(1) <= z(1, 1)));
-}
-
-// [[Rcpp::export]]
 double EstimateUV(const mat& z, const vec& y, const int& i, const double& h){
   return sum(Kernel(z.each_row() - z.row(i), h) % (y <= y(i))) / (sum(Kernel(z.each_row() - z.row(i), h)) + 0.0);
 }
@@ -75,7 +69,7 @@ double EstimateRho(const vec& u, const vec& v, const mat& w){
 }
 
 // [[Rcpp::export]]
-vec CITestStat(const mat& x, const vec& y, const mat& z, const double& h){
+vec CIS(const mat& x, const vec& y, const mat& z, const double& h){
   int n = x.n_rows;
   int p = x.n_cols;
   
